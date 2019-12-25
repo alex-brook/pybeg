@@ -6,7 +6,7 @@ import pyautogui as gui
 
 BEG_MSG = "pls beg"
 SEARCH_MSG = "pls search"
-GIVE_MSG = "pls give 100 alex#2592"
+GIVE_MSG = "pls give 100 {USER}"
 SELL_CHILL_PILL_MSG = "pls sell chilpill"
 SELL_BREAD_MSG = "pls sell bread"
 SELL_COOKIE_MSG = "pls sell cookie"
