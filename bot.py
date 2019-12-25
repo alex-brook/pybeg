@@ -26,4 +26,7 @@ async def on_ready():
 async def on_message(message):
     if(str(message.author) == TARGET_USER):
         print(message.content)
+        embed_list = message.embeds
+        for embed in embed_list:
+            print(embed.title)
 client.run(TOKEN)
