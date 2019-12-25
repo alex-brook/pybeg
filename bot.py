@@ -1,7 +1,7 @@
 # bot.py
 import os
-
 import discord
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -24,6 +24,6 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if(message.author == TARGET_USER):
+    if(str(message.author) == TARGET_USER):
         print(message.content)
 client.run(TOKEN)
