@@ -24,8 +24,11 @@ async def on_ready():
         f'{guild.name}(id: {guild.id})\n'
     )
 
+def get_user(username)
+    return discord.utils.get(client.get_all_members(), name=username.split('#')[0], discriminator=username.split('#')[1])
+
 def is_police_kill_message(message):
-    id = discord.utils.get(client.get_all_members(), name=CURRENT_USER.split('#')[0], discriminator=CURRENT_USER.split('#')[1]).id
+    id = get_user(CURRENT_USER).id
     POLICE_KILL_MESSAGE = '<@' + str(id) + '> The police are here, and they\'re after you! Type'
     if POLICE_KILL_MESSAGE in message.content:
         secret_message = re.search('`.*`', message.content)
