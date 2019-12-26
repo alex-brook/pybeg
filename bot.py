@@ -24,7 +24,7 @@ async def on_ready():
         f'{guild.name}(id: {guild.id})\n'
     )
 
-def get_user(username)
+def get_user(username):
     return discord.utils.get(client.get_all_members(), name=username.split('#')[0], discriminator=username.split('#')[1])
 
 def is_police_kill_message(message):
