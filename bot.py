@@ -31,7 +31,7 @@ def is_police_kill_message(message):
     id = get_user(CURRENT_USER).id
     POLICE_KILL_MESSAGE = '<@' + str(id) + '> The police are here, and they\'re after you! Type'
     if POLICE_KILL_MESSAGE in message.content:
-        secret_message = re.search('`.*`', message.content)
+        secret_message = re.search('`.*`', message.content).group(0)
         print(secret_message)
 
 @client.event
