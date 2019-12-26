@@ -1,6 +1,7 @@
 # bot.py
 import os
 import discord
+import re
 
 from dotenv import load_dotenv
 
@@ -8,6 +9,9 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 TARGET_USER = os.getenv('TARGET_USER')
+CURRENT_USER = os.genenv('CURRENT_USER')
+
+POLICE_KILL_MESSAGE = f'@{CURRENT_USER} The police are here, and they\'re after you! Type'
 
 client = discord.Client()
 
@@ -24,9 +28,14 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if(str(message.author) == TARGET_USER):
+    if str(message.author) == TARGET_USER:
         embed_list = message.embeds
         for embed in embed_list:
             print(embed.title)
             print(embed.description)
 client.run(TOKEN)
+
+def is_police_kill_message(message):
+    if POLICE_KILL_MESSAGE in message.content:
+	secret_message = re.search('`.*`', message.content)
+	print(secret_message)
