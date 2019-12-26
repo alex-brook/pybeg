@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # bot.py
 import os
 import discord
@@ -27,18 +28,34 @@ async def on_ready():
 def get_user(username):
     return discord.utils.get(client.get_all_members(), name=username.split('#')[0], discriminator=username.split('#')[1])
 
-def is_police_kill_message(message):
+def is_balance_message(message):
+    if not message.embeds:
+        return False
+
+    username = CURRENT_USER.split('#')[0] 
+    balance_title = f'{username}\'s balance'
+    return balance_title in message.embeds[0].title 
+
+def get_wallet_total(balance_message):
+    embed_msg = balance_message.embeds[0].description
+    result = re.search('\*\*Wallet\*\*: (.*)\n', embed_msg).group(1)
+    return int(result.replace(',',''))
+
+def is_police_message(message):
     id = get_user(CURRENT_USER).id
-    POLICE_KILL_MESSAGE = '<@' + str(id) + '> The police are here, and they\'re after you! Type'
-    if POLICE_KILL_MESSAGE in message.content:
-        secret_message = re.search('`.*`', message.content).group(0)
-        print(secret_message)
+    return '<@' + str(id) + '> The police are here, and they\'re after you! Type' in message.content
+
+def get_police_secret(message):
+    return re.search('`.*`', message.content).group(1)
 
 @client.event
 async def on_message(message):
-    if 'The police are here' in message.content:
-        print(message.content)
-        is_police_kill_message(message)
+    if is_police_message(message):
+        print("We found a police message")
+        print(get_police_secret(message))
+    elif is_balance_message(message):
+        print("We found a balance message")
+        print(f'current user has {get_wallet_total(message)} coins')
 #    if str(message.author) == TARGET_USER:
 #        embed_list = message.embeds
 #        for embed in embed_list:
